@@ -4,7 +4,7 @@
 
 ### ChefCookbook ###
 .vagrant
-/cookbooks
+# /cookbooks
 
 # Bundler
 bin/*
@@ -144,4 +144,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/git,rust,macos,windows,powershell,sublimetext,chefcookbook,visualstudiocode
+# End of https://www.gitignore.io/api/git,rust,macos,windows,powershell,sublimetext,chefcookbook,visualstudiocoderesults/
