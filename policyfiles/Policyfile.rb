@@ -4,13 +4,13 @@
 # https://docs.chef.io/policyfile.html
 
 # A name that describes what the system you're building with Chef does.
-name 'example-application-service'
+name 'hab_opbldr_update'
 
 # Where to find external cookbooks:
 default_source :supermarket
 
 # run_list: chef-client will run these recipes in the order specified.
-run_list 'hab_opbldr_update::default'
+run_list 'hab_opbldr_update'
 
 # Specify a custom source for a single cookbook:
 cookbook 'hab_opbldr_update', path: '../cookbooks/hab_opbldr_update'

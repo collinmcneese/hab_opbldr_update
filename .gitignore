@@ -1,4 +1,10 @@
 
+### Project-Specific ###
+cookbooks/hab_opbldr_update/attributes/local_default.rb
+results/
+policyfiles/*.lock.json
+nodes/
+
 # Created by https://www.gitignore.io/api/git,rust,macos,windows,powershell,sublimetext,chefcookbook,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=git,rust,macos,windows,powershell,sublimetext,chefcookbook,visualstudiocode
 

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Create user.toml under /hab/user space for package
+if [ -f {{ pkg.path }}/default.toml ]; then
+  mkdir -p /hab/user/{{ pkg.origin }}/{{ pkg.name }}
+  cp {{ pkg.path }}/default.toml /hab/user/{{ pkg.origin }}/{{ pkg.name }}/user.toml
+fi

@@ -1,14 +1,23 @@
 ---
 driver:
   name: vagrant
+  synced_folders:
+   - ['.', '/tmp/habitat']
 
 provisioner:
-  name: chef_solo
+  name: shell
 
 platforms:
   - name: centos-7
+  - name: centos-8
+
+verifier:
+  name: inspec
 
 suites:
-  - name: default
-    run_list:
+  - name: opbldr
+    verifier:
+      inspec_tests:
+        - path: test/integration/default
     attributes:
+      build: false
