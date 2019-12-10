@@ -6,6 +6,7 @@ driver:
 
 provisioner:
   name: shell
+  script: 'test/scripts/bootstrap.sh'
 
 platforms:
   - name: centos-7

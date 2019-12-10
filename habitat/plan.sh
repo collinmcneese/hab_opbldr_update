@@ -1,6 +1,6 @@
 pkg_name=hab_opbldr_update
 pkg_origin=collinmcneese
-pkg_version="0.2.0"
+pkg_version="0.3.0"
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
 pkg_license=("Apache-2.0")
 pkg_upstream_url="http://chef.io"
