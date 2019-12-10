@@ -1,15 +1,13 @@
 pkg_name=hab_opbldr_update
 pkg_origin=collinmcneese
-pkg_version="0.1.0"
+pkg_version="0.2.0"
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
 pkg_license=("Apache-2.0")
 pkg_upstream_url="http://chef.io"
 pkg_scaffolding="chef/scaffolding-chef-infra"
-# pkg_build_deps=@("chef/chef-dk")
 pkg_svc_user=("root")
 pkg_deps=("core/git")
 scaffold_policy_name="Policyfile"
-# scaffold_policyfile_path="../policyfiles"
 
 #######################################
 # Optional settings
