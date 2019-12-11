@@ -7,13 +7,9 @@
 # Only meant for systems that are running systemd
 return unless ::File.exist?('/etc/systemd/system.conf')
 
-# Load the toml-rb gem for parsing configuration file
-chef_gem 'toml-rb'
-require 'toml-rb'
-
 # Read opbldr configuration settings from user.toml
 tomlfile = '/hab/user/collinmcneese/hab_opbldr_update/user.toml'
-usertoml = TomlRB.load_file(tomlfile)
+usertoml = Tomlrb.load_file(tomlfile)
 cfggitrepopath = usertoml['opbldr']['gitrepopath']
 cfgpublicpat = usertoml['opbldr']['publicpat']
 cfgprivatepat = usertoml['opbldr']['privatepat']
