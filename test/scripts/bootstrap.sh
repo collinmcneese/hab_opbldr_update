@@ -1,7 +1,5 @@
 export HAB_LICENSE="accept"
 export HAB_ORIGIN='collinmcneese'
-# pkg_name = "hab_opbldr_update"
-# pkg_origin = "$HAB_ORIGIN"
 echo "Installing Habitat"
 if [ ! -d /hab ]; then
   curl https://raw.githubusercontent.com/habitat-sh/habitat/master/components/hab/install.sh | sudo bash
@@ -22,7 +20,7 @@ if [ ! -f /tmp/habitat/results/last_build.env ] ; then
   hab pkg build habitat
 fi
 
-source /tmp/habitat/results/last_build.env
+source /tmp/habitat/results/last_build.env || . /tmp/habitat/results/last_build.env
 
 echo "Installing ${pkg_artifact}"
 hab pkg install /tmp/habitat/results/${pkg_artifact}

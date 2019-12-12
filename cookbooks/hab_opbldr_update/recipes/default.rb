@@ -10,13 +10,6 @@ return unless ::File.exist?('/etc/systemd/system.conf')
 # Read opbldr configuration settings from user.toml
 tomlfile = '/hab/user/collinmcneese/hab_opbldr_update/user.toml'
 usertoml = Tomlrb.load_file(tomlfile)
-cfggitrepopath = usertoml['opbldr']['gitrepopath']
-cfgpublicpat = usertoml['opbldr']['publicpat']
-cfgprivatepat = usertoml['opbldr']['privatepat']
-cfgbldrurl = usertoml['opbldr']['bldrurl']
-cfgseedfilelist = usertoml['opbldr']['seedfilelist']
-cfgtmppath = usertoml['opbldr']['tmppath']
-cfgschedule = usertoml['opbldr']['schedule']
 
 # Clone the public On-Prem Habitat Builder Git repository
 directory '/var/chef/habitat' do
@@ -35,11 +28,14 @@ execute 'clone on-prem-builder' do
 end
 
 # Build update shell script for systemd execution
-template '/var/chef/habitat/hab-bldr-update-origins.sh' do
-  source 'hab-bldr-update-origins.sh.erb'
+template '/var/chef/habitat/hab-bldr-update-pkgs.sh' do
+  source 'hab-bldr-update-pkgs.sh.erb'
   owner 'root'
   group 'root'
   mode '0700'
+  variables(
+    'usertoml': usertoml
+  )
   action :create
 end
 
@@ -51,7 +47,7 @@ systemd_unit 'hab-opbldr-update.service' do
 
   [Service]
   Type=simple
-  ExecStart=/var/chef/habitat/hab-bldr-update-origins.sh
+  ExecStart=/var/chef/habitat/hab-bldr-update-pkgs.sh
 
   [Install]
   WantedBy=multi-user.target
@@ -67,7 +63,7 @@ systemd_unit 'hab-opbldr-update.timer' do
   Requires=hab-opbldr-update.service
 
   [Timer]
-  OnCalendar=#{cfgschedule}
+  OnCalendar=#{usertoml['opbldr']['schedule']}
 
   [Install]
   WantedBy=timers.target

@@ -1,3 +1,52 @@
+# You must accept the Chef License to use this software: https://www.chef.io/end-user-license-agreement/
+# Change [chef_license] from acceptance = "undefined" to acceptance = "accept-no-persist" if you agree to the license.
+
+[chef_license]
+acceptance = "undefined"
+
+#######################################
+# Habitat On-Prem Builder Update settings
+#######################################
+
+[opbldr]
+# Path to local filesystem location where git repo is stored - https://github.com/habitat-sh/on-prem-builder
+#  ex: gitrepopath = "/var/habitat/on-prem-builder"
+gitrepopath = '/var/chef/habitat/on-prem-builder'
+
+# Public Builder PAT
+publicpat = 'changeme'
+
+# Private Builder PAT
+privatepat = 'changeme'
+
+# URL of on-prem Habitat Builder
+bldrurl = 'http://localhost'
+
+# Seed file to use for sync process
+#  Available seed files are located at #{gitrepopath}/package_seed_lists
+seedfile = '/var/chef/habitat/seed.toml'
+
+# Filesystem location to use for temporary download of packages when updating
+#  defaults to /tmp/hab_opbldr_update_tmp
+tmppath = '/tmp/hab_opbldr_update_tmp'
+
+# Sync schedule for updates, defaults to run weekly on Sunday at 04:00 local system time
+#  See for time syntax details - https://www.freedesktop.org/software/systemd/man/systemd.time.html#
+#  Additional Examples:
+#     minutely → *-*-* *:*:00
+#       hourly → *-*-* *:00:00
+#        daily → *-*-* 00:00:00
+#      monthly → *-*-01 00:00:00
+#       weekly → Mon *-*-* 00:00:00
+#       yearly → *-01-01 00:00:00
+#    quarterly → *-01,04,07,10-01 00:00:00
+# semiannually → *-01,07-01 00:00:00
+schedule = 'Sun *-*-* 04:00:00'
+
+#######################################
+# End Habitat On-Prem Builder Update settings
+#######################################
+
 #######################################
 # Chef Infra Client Configuration Settings
 #######################################
@@ -54,33 +103,3 @@ ssl_verify_mode = ":verify_peer"
 #######################################
 # End of Chef Infra Client Configuration Settings
 #######################################
-
-# You must accept the Chef License to use this software: https://www.chef.io/end-user-license-agreement/
-# Change [chef_license] from acceptance = "undefined" to acceptance = "accept-no-persist" if you agree to the license.
-
-[chef_license]
-acceptance = "undefined"
-
-#######################################
-# Habitat On-Prem Builder Update settings
-#######################################
-
-[opbldr]
-# Path to local filesystem location where git repo is stored - https://github.com/habitat-sh/on-prem-builder
-#  ex: gitrepopath = "/var/habitat/on-prem-builder"
-gitrepopath = '/var/chef/habitat/on-prem-builder'
-# Public Builder PAT
-publicpat = ''
-# Private Builder PAT
-privatepat = ''
-# URL of on-prem Habitat Builder
-bldrurl = ''
-# Array of seed files to use for sync
-#  Available seed files are located at #{gitrepopath}/package_seed_lists
-seedfilelist = []
-# Filesystem location to use for temporary download of packages when updating
-#  defaults to /tmp/hab_opbldr_update_tmp
-tmppath = '/tmp/hab_opbldr_update_tmp'
-# Sync schedule for updates, defaults to run weekly on Sunday at 04:00 local system time
-#  See for time syntax details - https://www.freedesktop.org/software/systemd/man/systemd.time.html#
-schedule = 'Sun *-*-* 04:00:00'

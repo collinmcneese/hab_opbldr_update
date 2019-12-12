@@ -9,11 +9,8 @@ control 'cookbook validations' do
   describe directory('/var/chef/habitat') do
     it { should exist }
   end
-  describe file('/var/chef/habitat/hab-bldr-update-origins.sh') do
+  describe file('/var/chef/habitat/hab-bldr-update-pkgs.sh') do
     it { should exist }
-  end
-  describe gem('toml-rb') do
-    it { should be_installed }
   end
 end
 
