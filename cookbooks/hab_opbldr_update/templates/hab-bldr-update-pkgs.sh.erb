@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# This file is managed by Chef, any manual changes will be overwritten
+# Used to update On-Prem Habitat Builder packages
+
+# Download packages from Public builder, specified within seed file
+export HAB_AUTH_TOKEN="<%= @usertoml['opbldr']['publicpat'] %>"
+hab pkg download --url 'https://bldr.habitat.sh' --file <%= @usertoml['opbldr']['seedfilelist'] %> --download-directory <%= @usertoml['opbldr']['tmppath'] %>
+
+# Bulk-Upload packages to on-prem Habitat Builder
+export HAB_AUTH_TOKEN="<%= @usertoml['opbldr']['privatepat'] %>"
+hab pkg bulkupload --url <%= @usertoml['opbldr']['bldrurl'] %> --channel stable <%= @usertoml['opbldr']['tmppath'] %> 
+
+# Cleanup
+unset HAB_AUTH_TOKEN
+rm -fr <%= @usertoml['opbldr']['tmppath'] %>
