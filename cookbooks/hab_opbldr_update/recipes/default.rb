@@ -27,6 +27,15 @@ execute 'clone on-prem-builder' do
   action :run
 end
 
+# Create base seed.toml file used for sync process
+template '/var/chef/habitat/seed.toml' do
+  source 'seed.toml.erb'
+  owner 'root'
+  group 'root'
+  mode '0744'
+  action :create_if_missing
+end
+
 # Build update shell script for systemd execution
 template '/var/chef/habitat/hab-bldr-update-pkgs.sh' do
   source 'hab-bldr-update-pkgs.sh.erb'

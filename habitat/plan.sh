@@ -1,7 +1,7 @@
 pkg_name=hab_opbldr_update
 pkg_origin=collinmcneese
-pkg_version="0.4.0"
-pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
+pkg_version="0.5.0"
+pkg_maintainer="Collin McNeese <cmcneese@chef.io>"
 pkg_license=("Apache-2.0")
 pkg_upstream_url="http://chef.io"
 pkg_scaffolding="chef/scaffolding-chef-infra"

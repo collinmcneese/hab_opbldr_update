@@ -12,6 +12,9 @@ control 'cookbook validations' do
   describe file('/var/chef/habitat/hab-bldr-update-pkgs.sh') do
     it { should exist }
   end
+  describe file('/var/chef/habitat/seed.toml') do
+    it { should exist }
+  end
 end
 
 control 'systemd unit checks' do
