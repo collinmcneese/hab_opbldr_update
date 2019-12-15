@@ -1,6 +1,6 @@
 pkg_name=hab_opbldr_update
 pkg_origin=collinmcneese
-pkg_version="0.5.0"
+pkg_version="0.6.0"
 pkg_maintainer="Collin McNeese <cmcneese@chef.io>"
 pkg_license=("Apache-2.0")
 pkg_upstream_url="http://chef.io"
