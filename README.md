@@ -18,7 +18,7 @@ Chef Effortless package which provides scheduling mechanism to run regular updat
     ```text
     +-------------------+             +-------------------+
     |                   |             |                   |
-    |  Chef Habitat     |-------------|  Chef Habitat     |
+    |  Chef Habitat     |------------>|  Chef Habitat     |
     |  Builder Public   |             |  Builder On-Prem  |
     |                   |             |                   |
     +-------------------+             +-------------------+
@@ -29,15 +29,15 @@ Chef Effortless package which provides scheduling mechanism to run regular updat
     ```text
                                                                     +-------------------+
                                                                     |                   |
-                                                                  /|  Chef Habitat     |
-                                                                /- |  Builder On-Prem  |
+                                                                  / |  Chef Habitat     |
+                                                                /-  |  Builder On-Prem  |
     +-------------------+             +-------------------+    /-   |  Downstream       |
     |                   |             |                   |  /-     +-------------------+
-    |  Chef Habitat     |-------------| Chef Habitat      | -
+    |  Chef Habitat     |------------>| Chef Habitat      | -
     |  Builder Public   |             | Builder On-Prem   |  \-
     |                   |             |                   |    \-   +-------------------+
     +-------------------+             +-------------------+      \- |                   |
-                                                                  \|  Chef Habitat     |
+                                                                  \ |  Chef Habitat     |
                                                                     |  Builder On-Prem  |
                                                                     |  Downstream       |
                                                                     +-------------------+
