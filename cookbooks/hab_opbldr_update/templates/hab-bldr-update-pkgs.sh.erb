@@ -3,14 +3,21 @@
 # This file is managed by Chef, any manual changes will be overwritten
 # Used to update On-Prem Habitat Builder packages
 
+jobpath="<%= @jobdetails['tmppath'] %>/buildersync"
+
+# Create the temporary storage path
+echo "Creating temporary storage location - ${jobpath} "
+mkdir -p ${jobpath}
+
 # Download packages from source builder, specified within seed file
 export HAB_AUTH_TOKEN="<%= @jobdetails['srcbldrpat'] %>"
-hab pkg download --url <%= @jobdetails['srcbldrurl']%> --file <%= @jobdetails['seedfile'] %> --download-directory <%= @jobdetails['tmppath'] %>
+hab pkg download --url <%= @jobdetails['srcbldrurl']%> --file <%= @jobdetails['seedfile'] %> --download-directory ${jobpath}
 
 # Bulk-Upload packages to target Habitat Builder
 export HAB_AUTH_TOKEN="<%= @jobdetails['tgtbldrpat'] %>"
-hab pkg bulkupload --url <%= @jobdetails['tgtbldrurl'] %> --channel <%= @jobdetails['tgtchannel'] %> <%= @jobdetails['tmppath'] %> 
+hab pkg bulkupload --url <%= @jobdetails['tgtbldrurl'] %> --channel <%= @jobdetails['tgtchannel'] %> ${jobpath}
 
 # Cleanup
 unset HAB_AUTH_TOKEN
-rm -fr <%= @jobdetails['tmppath'] %>
+echo "Performing Cleanup - Removing temporary storage location ${jobpath} "
+rm -fr ${jobpath}

@@ -21,12 +21,6 @@ directory '/var/chef/habitat' do
   action :create
 end
 
-execute 'clone on-prem-builder' do
-  command 'hab pkg exec core/git git clone https://github.com/habitat-sh/on-prem-builder.git /var/chef/habitat/on-prem-builder'
-  not_if { ::Dir.exist?('/var/chef/habitat/on-prem-builder') }
-  action :run
-end
-
 # Create one or more sync jobs.  Default job will be built from pre-packaged user.toml and additional may be created within file
 usertoml['opbldr'].each do |jobname, jobdetails|
   # Create base seed.toml file used for job sync process

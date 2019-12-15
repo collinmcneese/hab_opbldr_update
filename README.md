@@ -79,10 +79,6 @@ acceptance = "undefined"
 [opbldr.default]
 description = 'Default sync job'
 
-# Path to local filesystem location where git repo is stored - https://github.com/habitat-sh/on-prem-builder
-#  ex: gitrepopath = "/var/habitat/on-prem-builder"
-gitrepopath = '/var/chef/habitat/on-prem-builder'
-
 # Source Builder PAT
 srcbldrpat = 'changeme'
 
