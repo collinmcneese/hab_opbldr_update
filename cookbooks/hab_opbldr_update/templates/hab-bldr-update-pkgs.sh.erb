@@ -4,13 +4,13 @@
 # Used to update On-Prem Habitat Builder packages
 
 # Download packages from source builder, specified within seed file
-export HAB_AUTH_TOKEN="<%= @usertoml['opbldr']['srcbldrpat'] %>"
-hab pkg download --url <%= @usertoml['opbldr']['srcbldrurl']%> --file <%= @usertoml['opbldr']['seedfilelist'] %> --download-directory <%= @usertoml['opbldr']['tmppath'] %>
+export HAB_AUTH_TOKEN="<%= @jobdetails['srcbldrpat'] %>"
+hab pkg download --url <%= @jobdetails['srcbldrurl']%> --file <%= @jobdetails['seedfile'] %> --download-directory <%= @jobdetails['tmppath'] %>
 
 # Bulk-Upload packages to target Habitat Builder
-export HAB_AUTH_TOKEN="<%= @usertoml['opbldr']['tgtbldrpat'] %>"
-hab pkg bulkupload --url <%= @usertoml['opbldr']['tgtbldrurl'] %> --channel stable <%= @usertoml['opbldr']['tmppath'] %> 
+export HAB_AUTH_TOKEN="<%= @jobdetails['tgtbldrpat'] %>"
+hab pkg bulkupload --url <%= @jobdetails['tgtbldrurl'] %> --channel <%= @jobdetails['tgtchannel'] %> <%= @jobdetails['tmppath'] %> 
 
 # Cleanup
 unset HAB_AUTH_TOKEN
-rm -fr <%= @usertoml['opbldr']['tmppath'] %>
+rm -fr <%= @jobdetails['tmppath'] %>
