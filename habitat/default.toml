@@ -9,11 +9,9 @@ acceptance = "undefined"
 #######################################
 
 [opbldr]
+
 [opbldr.default]
 description = 'Default sync job'
-# Path to local filesystem location where git repo is stored - https://github.com/habitat-sh/on-prem-builder
-#  ex: gitrepopath = "/var/habitat/on-prem-builder"
-gitrepopath = '/var/chef/habitat/on-prem-builder'
 
 # Source Builder PAT
 srcbldrpat = 'changeme'
@@ -57,7 +55,6 @@ schedule = 'Sun *-*-* 04:00:00'
 #  Example:
 # [opbldr.second]
 # description = 'Alternate sync job to pull from seed-second.toml'
-# gitrepopath = '/var/chef/habitat/on-prem-builder'
 # srcbldrpat = 'changeme'
 # tgtbldrpat = 'changeme'
 # srcbldrurl = 'https://bldr.habitat.sh'
@@ -68,7 +65,6 @@ schedule = 'Sun *-*-* 04:00:00'
 # schedule = 'Sun *-*-* 04:00:00'
 # [opbldr.third]
 # description = 'sync job to pull from seed-third.toml hourly and publish to customchannelname'
-# gitrepopath = '/var/chef/habitat/on-prem-builder'
 # srcbldrpat = 'changeme'
 # tgtbldrpat = 'changeme'
 # srcbldrurl = 'https://bldr.habitat.sh'
