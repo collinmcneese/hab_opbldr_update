@@ -13,14 +13,18 @@ acceptance = "undefined"
 #  ex: gitrepopath = "/var/habitat/on-prem-builder"
 gitrepopath = '/var/chef/habitat/on-prem-builder'
 
-# Public Builder PAT
-publicpat = 'changeme'
+# Source Builder PAT
+srcbldrpat = 'changeme'
 
-# Private Builder PAT
-privatepat = 'changeme'
+# Target Builder PAT
+tgtbldrpat = 'changeme'
+
+# URL of source builder which is the source for packages being synced.
+#  Default is 'https://bldr.habitat.sh' to pull from public Chef Habitat Builder, change to an internal URL to sync an internal replica.
+srcbldrurl = 'https://bldr.habitat.sh'
 
 # URL of on-prem Habitat Builder
-bldrurl = 'http://localhost'
+tgtbldrurl = 'http://localhost'
 
 # Seed file to use for sync process
 #  Available seed files are located at #{gitrepopath}/package_seed_lists
