@@ -9,6 +9,8 @@ acceptance = "undefined"
 #######################################
 
 [opbldr]
+[opbldr.default]
+description = 'Default sync job'
 # Path to local filesystem location where git repo is stored - https://github.com/habitat-sh/on-prem-builder
 #  ex: gitrepopath = "/var/habitat/on-prem-builder"
 gitrepopath = '/var/chef/habitat/on-prem-builder'
@@ -30,6 +32,10 @@ tgtbldrurl = 'http://localhost'
 #  Available seed files are located at #{gitrepopath}/package_seed_lists
 seedfile = '/var/chef/habitat/seed.toml'
 
+# Target channel to deploy packages to on target Habitat Builder instance.
+#  Defaults to 'stable'
+tgtchannel = 'stable'
+
 # Filesystem location to use for temporary download of packages when updating
 #  defaults to /tmp/hab_opbldr_update_tmp
 tmppath = '/tmp/hab_opbldr_update_tmp'
@@ -46,6 +52,31 @@ tmppath = '/tmp/hab_opbldr_update_tmp'
 #    quarterly → *-01,04,07,10-01 00:00:00
 # semiannually → *-01,07-01 00:00:00
 schedule = 'Sun *-*-* 04:00:00'
+
+# Additional jobs can be created by adding more opbldr sections allowing usage of different seed files, schedules, or target publishing channels.
+#  Example:
+# [opbldr.second]
+# description = 'Alternate sync job to pull from seed-second.toml'
+# gitrepopath = '/var/chef/habitat/on-prem-builder'
+# srcbldrpat = 'changeme'
+# tgtbldrpat = 'changeme'
+# srcbldrurl = 'https://bldr.habitat.sh'
+# tgtbldrurl = 'http://localhost'
+# seedfile = '/var/chef/habitat/seed-second.toml'
+# tgtchannel = 'stable'
+# tmppath = '/tmp/hab_opbldr_update_tmp'
+# schedule = 'Sun *-*-* 04:00:00'
+# [opbldr.third]
+# description = 'sync job to pull from seed-third.toml hourly and publish to customchannelname'
+# gitrepopath = '/var/chef/habitat/on-prem-builder'
+# srcbldrpat = 'changeme'
+# tgtbldrpat = 'changeme'
+# srcbldrurl = 'https://bldr.habitat.sh'
+# tgtbldrurl = 'http://localhost'
+# seedfile = '/var/chef/habitat/seed-third.toml'
+# tgtchannel = 'customchannelname'
+# tmppath = '/tmp/hab_opbldr_update_tmp'
+# schedule = '*-*-* *:00:00'
 
 #######################################
 # End Habitat On-Prem Builder Update settings

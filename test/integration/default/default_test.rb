@@ -9,7 +9,7 @@ control 'cookbook validations' do
   describe directory('/var/chef/habitat') do
     it { should exist }
   end
-  describe file('/var/chef/habitat/hab-bldr-update-pkgs.sh') do
+  describe file('/var/chef/habitat/hab-bldr-update-pkgs-default.sh') do
     it { should exist }
   end
   describe file('/var/chef/habitat/seed.toml') do
@@ -21,10 +21,10 @@ control 'systemd unit checks' do
   impact 0.1
   title 'Check for creation of systemd units.'
   # http://inspec.io/docs/reference/resources/systemd_service/
-  describe systemd_service('hab-opbldr-update.service') do
+  describe systemd_service('hab-opbldr-update-default.service') do
     it { should be_installed }
   end
-  describe systemd_service('hab-opbldr-update.timer') do
+  describe systemd_service('hab-opbldr-update-default.timer') do
     it { should be_installed }
     it { should be_enabled }
   end

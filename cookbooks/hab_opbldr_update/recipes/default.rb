@@ -27,55 +27,58 @@ execute 'clone on-prem-builder' do
   action :run
 end
 
-# Create base seed.toml file used for sync process
-template '/var/chef/habitat/seed.toml' do
-  source 'seed.toml.erb'
-  owner 'root'
-  group 'root'
-  mode '0744'
-  action :create_if_missing
-end
+# Create one or more sync jobs.  Default job will be built from pre-packaged user.toml and additional may be created within file
+usertoml['opbldr'].each do |jobname, jobdetails|
+  # Create base seed.toml file used for job sync process
+  template jobdetails['seedfile'] do
+    source 'seed.toml.erb'
+    owner 'root'
+    group 'root'
+    mode '0744'
+    action :create_if_missing
+  end
 
-# Build update shell script for systemd execution
-template '/var/chef/habitat/hab-bldr-update-pkgs.sh' do
-  source 'hab-bldr-update-pkgs.sh.erb'
-  owner 'root'
-  group 'root'
-  mode '0700'
-  variables(
-    'usertoml': usertoml
-  )
-  action :create
-end
+  # Build update shell script for systemd execution
+  template "/var/chef/habitat/hab-bldr-update-pkgs-#{jobname}.sh" do
+    source 'hab-bldr-update-pkgs.sh.erb'
+    owner 'root'
+    group 'root'
+    mode '0700'
+    variables(
+      'jobdetails': jobdetails
+    )
+    action :create
+  end
 
-# Build systemd unit for running Habitat builder update
-systemd_unit 'hab-opbldr-update.service' do
-  content <<-EOU.gsub(/^\s+/, '')
-  [Unit]
-  Description=Run sync for Habitat On-Prem Builder packages from upstream Builder
+  # Build systemd unit for running Habitat builder update
+  systemd_unit "hab-opbldr-update-#{jobname}.service" do
+    content <<-EOU.gsub(/^\s+/, '')
+    [Unit]
+    Description=Run sync for Habitat On-Prem Builder packages from upstream Builder
 
-  [Service]
-  Type=simple
-  ExecStart=/var/chef/habitat/hab-bldr-update-pkgs.sh
+    [Service]
+    Type=simple
+    ExecStart=/var/chef/habitat/hab-bldr-update-pkgs-#{jobname}.sh
 
-  [Install]
-  WantedBy=multi-user.target
-  EOU
-  action :create
-end
+    [Install]
+    WantedBy=multi-user.target
+    EOU
+    action :create
+  end
 
-# Build systemd timer to execute update on schedule
-systemd_unit 'hab-opbldr-update.timer' do
-  content <<-EOU.gsub(/^\s+/, '')
-  [Unit]
-  Description=Timer for hab-opbldr-update.service process.
-  Requires=hab-opbldr-update.service
+  # Build systemd timer to execute update on schedule
+  systemd_unit "hab-opbldr-update-#{jobname}.timer" do
+    content <<-EOU.gsub(/^\s+/, '')
+    [Unit]
+    Description=Timer for hab-opbldr-update-#{jobname}.service process.
+    Requires=hab-opbldr-update-#{jobname}.service
 
-  [Timer]
-  OnCalendar=#{usertoml['opbldr']['schedule']}
+    [Timer]
+    OnCalendar=#{jobdetails['schedule']}
 
-  [Install]
-  WantedBy=timers.target
-  EOU
-  action [ :create, :enable, :start ]
-end
+    [Install]
+    WantedBy=timers.target
+    EOU
+    action [ :create, :enable, :start ]
+  end
+end # end jobbuild
