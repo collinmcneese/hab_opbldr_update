@@ -3,5 +3,5 @@
 # Create user.toml under /hab/user space for package, do not overwrite if it exists
 if [ -f {{ pkg.path }}/default.toml ]; then
   mkdir -p /hab/user/{{ pkg.origin }}/{{ pkg.name }}
-  cp -n {{ pkg.path }}/default.toml /hab/user/{{ pkg.origin }}/{{ pkg.name }}/user.toml
+  cp -n {{ pkg.path }}/default.toml /hab/user/{{ pkg.origin }}/{{ pkg.name }}/config/user.toml
 fi

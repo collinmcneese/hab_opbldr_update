@@ -8,7 +8,7 @@
 return unless ::File.exist?('/etc/systemd/system.conf')
 
 # Read opbldr configuration settings from user.toml
-tomlfile = '/hab/user/collinmcneese/hab_opbldr_update/user.toml'
+tomlfile = '/hab/user/collinmcneese/hab_opbldr_update/config/user.toml'
 usertoml = Tomlrb.load_file(tomlfile)
 
 # Clone the public On-Prem Habitat Builder Git repository
