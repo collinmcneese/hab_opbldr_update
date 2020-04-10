@@ -24,8 +24,10 @@ if getent passwd | grep -q "^hab:" ; then
 else
   useradd hab
 fi
+hab license accept
 hab pkg install core/hab-studio
 hab origin key generate
+hab pkg install collinmcneese/hab_sup_service
 
 echo "Installing ${pkg_artifact}"
 hab pkg install /tmp/habitat/results/${pkg_artifact}

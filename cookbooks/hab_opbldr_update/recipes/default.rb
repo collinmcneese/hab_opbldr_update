@@ -75,4 +75,12 @@ usertoml['opbldr'].each do |jobname, jobdetails|
     EOU
     action [ :create, :enable, :start ]
   end
+
+  # make sure that tmppath exists
+  directory jobdetails['tmppath'].to_s do
+    owner 'root'
+    group 'root'
+    mode '0755'
+    action :create
+  end
 end # end jobbuild

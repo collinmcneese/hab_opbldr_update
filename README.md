@@ -60,7 +60,7 @@ This logic can be extended to create multiple jobs, as required, for more advanc
 
 ### user.toml
 
-After package installation, the file `/hab/user/<origin>/hab_opbldr_update/user.toml` must be updated to indicate licence acceptance and for configuration of items under `[opbldr.default]` section:
+After package installation, the file `/hab/user/hab_opbldr_update/config/user.toml` must be updated to indicate licence acceptance and for configuration of items under `[opbldr.default]` section:
 
 ```bash
 # You must accept the Chef License to use this software: https://www.chef.io/end-user-license-agreement/
