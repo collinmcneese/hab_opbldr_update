@@ -8,71 +8,51 @@ acceptance = "undefined"
 # Habitat On-Prem Builder Update settings
 #######################################
 
-[opbldr]
+[[opbldr]]
 
 [opbldr.default]
-description = 'Default sync job'
+# Source Habitat builder instance to obtain packages from and Personal Access Token to use
+# Example: 
+# source_builder = "https://bldr.habitat.sh"
+source_builder = ""
+source_PAT = ""
 
-# Source Builder PAT
-srcbldrpat = 'changeme'
+# Target Habitat builder instance where packages will be synchronized to and Personal Access Token to use
+target_builder = ""
+target_PAT = ""
 
-# Target Builder PAT
-tgtbldrpat = 'changeme'
+# Filesystem location to use for downloading packages during sync process. Sub-folder hab_opbldr_update will be created to avoid undesired destruction with cleanup
+# Example:
+# tmp_dir = "/tmp/builder_sync"
+tmp_dir = ""
 
-# URL of source builder which is the source for packages being synced.
-#  Default is 'https://bldr.habitat.sh' to pull from public Chef Habitat Builder, change to an internal URL to sync an internal replica.
-srcbldrurl = 'https://bldr.habitat.sh'
+# Origin to use for source and destination
+origin = ""
 
-# URL of on-prem Habitat Builder
-tgtbldrurl = 'http://localhost'
+# Optional - Channels to include with sync process.  If empty then default will be 'stable'
+channels = []
 
-# Seed file to use for sync process
-#  Available seed files are located at #{gitrepopath}/package_seed_lists
-seedfile = '/var/chef/habitat/seed.toml'
+# Optional - Packages names to include with sync process.  If empty, all pacakges on origin in selected channel(s) will be included.
+# Example:
+# packages = ["inspec", "chef-infra-client"]
+packages = []
 
-# Target channel to deploy packages to on target Habitat Builder instance.
-#  Defaults to 'stable'
-tgtchannel = 'stable'
+# Optional - Cleans up any downloaded files from tmp_dir after update process has completed
+## valid options are enable or disable
+cleanup = "disable"
 
-# Filesystem location to use for temporary download of packages when updating
-#  defaults to /tmp/hab_opbldr_update_tmp
-tmppath = '/tmp/hab_opbldr_update_tmp'
-
-# Sync schedule for updates, defaults to run weekly on Sunday at 04:00 local system time
-#  See for time syntax details - https://www.freedesktop.org/software/systemd/man/systemd.time.html#
-#  Additional Examples:
-#     minutely → *-*-* *:*:00
-#       hourly → *-*-* *:00:00
-#        daily → *-*-* 00:00:00
-#      monthly → *-*-01 00:00:00
-#       weekly → Mon *-*-* 00:00:00
-#       yearly → *-01-01 00:00:00
-#    quarterly → *-01,04,07,10-01 00:00:00
-# semiannually → *-01,07-01 00:00:00
-schedule = 'Sun *-*-* 04:00:00'
-
-# Additional jobs can be created by adding more opbldr sections allowing usage of different seed files, schedules, or target publishing channels.
+# Additional jobs can be created by adding more opbldr sections.
 #  Example:
 # [opbldr.second]
-# description = 'Alternate sync job to pull from seed-second.toml'
-# srcbldrpat = 'changeme'
-# tgtbldrpat = 'changeme'
-# srcbldrurl = 'https://bldr.habitat.sh'
-# tgtbldrurl = 'http://localhost'
-# seedfile = '/var/chef/habitat/seed-second.toml'
-# tgtchannel = 'stable'
-# tmppath = '/tmp/hab_opbldr_update_tmp'
-# schedule = 'Sun *-*-* 04:00:00'
-# [opbldr.third]
-# description = 'sync job to pull from seed-third.toml hourly and publish to customchannelname'
-# srcbldrpat = 'changeme'
-# tgtbldrpat = 'changeme'
-# srcbldrurl = 'https://bldr.habitat.sh'
-# tgtbldrurl = 'http://localhost'
-# seedfile = '/var/chef/habitat/seed-third.toml'
-# tgtchannel = 'customchannelname'
-# tmppath = '/tmp/hab_opbldr_update_tmp'
-# schedule = '*-*-* *:00:00'
+# source_builder = ""
+# source_PAT = ""
+# target_builder = ""
+# target_PAT = ""
+# tmp_dir = ""
+# origin = ""
+# channels = []
+# packages = []
+# cleanup = ""
 
 #######################################
 # End Habitat On-Prem Builder Update settings

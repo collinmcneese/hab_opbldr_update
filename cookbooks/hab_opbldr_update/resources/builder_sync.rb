@@ -6,7 +6,7 @@ property :source_builder, String
 property :source_PAT, String
 property :target_builder, String
 property :target_PAT, String
-property :tmp_dir, String
+property :tmp_dir, String, required: true
 property :origin, String, required: true
 property :packages, Array
 property :channels, Array, default: ['stable']
@@ -63,6 +63,7 @@ action :sync do
 
   ruby_block 'get_sync_details' do
     block do
+      tmp_dir = "#{new_resource.tmp_dir}/hab_opbldr_update"
       node.run_state['promote_array'] = []
       node.run_state['download_array'] = []
       node.run_state['package_list_details'].each do |package|
@@ -79,7 +80,8 @@ action :sync do
             if target_package_version_check
               # pkg exists on target builder
             else
-              node.run_state['download_array'].push("hab pkg download -u #{new_resource.source_builder} -z #{new_resource.source_PAT} -c #{channel} --target #{package['target']} --download-directory #{new_resource.tmp_dir} #{package['origin']}/#{package['name']}/#{package['version']}/#{package['release']}")
+              Dir.mkdir(tmp_dir) unless File.directory?(tmp_dir)
+              node.run_state['download_array'].push("hab pkg download -u #{new_resource.source_builder} -z #{new_resource.source_PAT} -c #{channel} --target #{package['target']} --download-directory #{tmp_dir} #{package['origin']}/#{package['name']}/#{package['version']}/#{package['release']}")
             end
           end
         end
@@ -99,7 +101,7 @@ action :sync do
 
   ruby_block 'bulk_upload' do
     block do
-      `hab pkg bulkupload --auto-create-origins -u #{new_resource.target_builder} -z #{new_resource.target_PAT} #{new_resource.tmp_dir}`
+      `hab pkg bulkupload --auto-create-origins -u #{new_resource.target_builder} -z #{new_resource.target_PAT} #{new_resource.tmp_dir}/hab_opbldr_update`
     end
     not_if { node.run_state['download_array'].empty? }
   end
@@ -115,7 +117,7 @@ action :sync do
 
   ruby_block 'cleanup' do
     block do
-      `rm -fr #{new_resource.tmp_dir}/*`
+      `rm -fr #{new_resource.tmp_dir}/hab_opbldr_update/*`
     end
     only_if { new_resource.cleanup == 'enable' }
   end

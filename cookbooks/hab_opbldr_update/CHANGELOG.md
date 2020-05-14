@@ -2,10 +2,6 @@
 
 This file is used to list changes made in each version of the hab_opbldr_update cookbook.
 
-# 0.1.0
+# 2.0.0
 
-Initial release.
-
-- change 0
-- change 1
-
+Rebuild of package, moves to using cookbook resources to run sync rather than cron jobs, increases reliability with what content is kept in sync.
