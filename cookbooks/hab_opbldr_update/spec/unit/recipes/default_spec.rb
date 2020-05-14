@@ -2,7 +2,7 @@
 # Cookbook:: hab_opbldr_update
 # Spec:: default
 #
-# Copyright:: 2019, Collin McNeese, All Rights Reserved.
+# Copyright:: 2020, Collin McNeese, All Rights Reserved.
 
 require 'spec_helper'
 

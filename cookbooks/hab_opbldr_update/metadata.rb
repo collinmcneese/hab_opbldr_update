@@ -3,7 +3,7 @@ maintainer 'Collin McNeese'
 maintainer_email 'cmcneese@chef.io'
 license 'All Rights Reserved'
 description 'Installs/Configures hab_opbldr_update'
-version '1.5.86'
+version '2.0.0'
 chef_version '>= 14.0'
 
 # The `issues_url` points to the location where issues for this cookbook are

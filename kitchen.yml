@@ -9,7 +9,6 @@ provisioner:
   script: 'test/scripts/bootstrap.sh'
 
 platforms:
-  - name: ubuntu-19.10
   - name: centos-8
 
 verifier:

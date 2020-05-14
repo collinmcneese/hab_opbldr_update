@@ -31,8 +31,8 @@ hab pkg install collinmcneese/hab_sup_service
 
 echo "Installing ${pkg_artifact}"
 hab pkg install /tmp/habitat/results/${pkg_artifact}
-bootstrapfile='/tmp/habitat/results/bootstrap.json'
-echo "{\"bootstrap_mode\": \"true\"}" > ${bootstrapfile}
+# bootstrapfile='/tmp/habitat/results/bootstrap.json'
+# echo "{\"bootstrap_mode\": \"true\"}" > ${bootstrapfile}
 
 echo "Determine pkg_prefix for ${pkg_artifact}"
 pkg_prefix=$(find "/hab/pkgs/${pkg_origin}/${pkg_name}" -maxdepth 2 -mindepth 2 | sort | tail -n 1)
