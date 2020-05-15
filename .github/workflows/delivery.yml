@@ -13,11 +13,8 @@
       steps:
         - name: Check out code
           uses: actions/checkout@master
-        - name: Run Chef Delivery
-          uses: actionshub/chef-delivery@master
-          env:
-            CHEF_LICENSE: accept-no-persist
-
+        - name: Chef Delivery Action
+          uses: actionshub/chef-delivery
 
     testing:
       needs: [delivery]
