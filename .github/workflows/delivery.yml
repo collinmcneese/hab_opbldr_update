@@ -32,7 +32,7 @@ jobs:
       - name: Install Chef Habitat
         uses: collinmcneese/chef-habitat-install@master
       - name: Build Habitat package
-        run: source habitat plan.sh ; hab origin key generate ${pkg.origin} ; hab studio build .
+        run: source habitat plan.sh ; hab origin key generate ${pkg_origin} ; hab studio build .
         env:
           HAB_LICENSE: accept-no-persist
       # Reference repo, no direct tests to run
