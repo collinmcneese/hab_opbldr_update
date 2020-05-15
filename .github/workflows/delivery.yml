@@ -29,6 +29,12 @@ jobs:
         run: chef install policyfiles/Policyfile.rb
         env:
           CHEF_LICENSE: accept-no-persist
+      - name: Install Chef Habitat
+        uses: collinmcneese/chef-install-habitat@master
+      - name: Build Habitat package
+        run: hab studio build .
+        env:
+          HAB_LICENSE: accept-no-persist
       # Reference repo, no direct tests to run
       # - name: kitchen
       #   run: kitchen converge
