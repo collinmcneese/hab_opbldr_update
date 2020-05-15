@@ -25,6 +25,7 @@ jobs:
         uses: actions/checkout@master
       - name: Install Chef
         uses: actionshub/chef-install@master
+      # Reference repo, no direct tests to run
       # - name: kitchen
       #   run: kitchen converge
       #   env:
