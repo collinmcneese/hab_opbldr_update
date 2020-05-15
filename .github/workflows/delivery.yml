@@ -30,9 +30,9 @@ jobs:
         env:
           CHEF_LICENSE: accept-no-persist
       - name: Install Chef Habitat
-        uses: collinmcneese/chef-install-habitat@master
+        uses: collinmcneese/chef-habitat-install@master
       - name: Build Habitat package
-        run: hab studio build .
+        run: source habitat plan.sh ; hab origin key generate ${pkg.origin} ; hab studio build .
         env:
           HAB_LICENSE: accept-no-persist
       # Reference repo, no direct tests to run
