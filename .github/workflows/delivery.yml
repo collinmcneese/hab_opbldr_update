@@ -14,7 +14,7 @@
         - name: Check out code
           uses: actions/checkout@master
         - name: Chef Delivery Action
-          uses: actionshub/chef-delivery
+          uses: actionshub/chef-delivery@master
 
     testing:
       needs: [delivery]
