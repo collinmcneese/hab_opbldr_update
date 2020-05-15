@@ -26,7 +26,7 @@ jobs:
       - name: Install Chef
         uses: actionshub/chef-install@master
       - name: PolicyFile test
-        run: chef install
+        run: chef install policyfiles/Policyfile.rb
         env:
           CHEF_LICENSE: accept-no-persist
       # Reference repo, no direct tests to run
