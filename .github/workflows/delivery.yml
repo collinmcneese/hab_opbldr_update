@@ -35,6 +35,8 @@ jobs:
         run: export pkg_origin=$(grep '^pkg_origin' habitat/plan.sh | awk -F'=' '{print $2}') ; hab origin key generate ${pkg_origin} ; hab studio -k ${pkg_origin} build .
         env:
           HAB_LICENSE: accept-no-persist
+      - name: Validate Chef Habitat Build
+        run: if [-f results/last_build.env] ; then echo "success" ; else exit 1 ; fi
       # Reference repo, no direct tests to run
       # - name: kitchen
       #   run: kitchen converge
