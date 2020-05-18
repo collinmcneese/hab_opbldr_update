@@ -1,6 +1,6 @@
 # Habitat On-Prem Builder Update (hab_opbldr_update)
 
-Chef Effortless package which provides scheduling mechanism to run regular updates of an On-Prem Habitat Builder.
+Chef Effortless package which provides scheduling mechanism to run regular updates of an On-Prem Habitat Builder.  This is a reference repo and should be modified for actual usage with either [direct cookbook update](#direct-cookbook-update) or [toml method](#toml-method)
 
 ## Pre-Requisites
 
