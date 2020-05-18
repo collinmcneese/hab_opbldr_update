@@ -59,7 +59,7 @@ builder_sync 'origin_sync' do
 end
 
 # Sample configuration to sync specific packages from an origin with all channels
-builder_sync 'chef_repo' do
+builder_sync 'builder_repo' do
   source_builder ENV['SOURCE_BLDR']
   source_PAT ENV['SOURCE_PAT']
   target_builder ENV['TARGET_BLDR']
