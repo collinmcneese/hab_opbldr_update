@@ -9,6 +9,18 @@ Chef Effortless package which provides scheduling mechanism to run regular updat
 * Personal Access Token for source Habitat Builder instance to download packages.
 * Personal Access Token for target Habitat Builder, allowing to upload new versions of packages which are downloaded from source Habitat Builder.
 
+## Process
+
+Overview of the steps in the `builder_sync` process:
+
+* Define Packages or entire origin to sync (specifying channels)
+* Run api calls to gather info about the packages as they exist in the source Builder
+* Check the target Builder to see if packages exist, mark for download from source if not
+* Check the target Builder to see if packages exist in the correct channel, mark for promote if not
+* Run download for all packages that need to be sent to target
+* Run bulk upload
+* Run promotions to get target state in sync with source for channel status (for channels we identified that we care about in the first step)
+
 ## Usage
 
 This reference repository contains both the Chef Habitat package and cookbook, following the Effortless pattern (<https://www.chef.io/products/effortless-infrastructure/>). 
