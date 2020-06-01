@@ -37,6 +37,19 @@ jobs:
           HAB_LICENSE: accept-no-persist
       - name: Validate Chef Habitat Build
         run: if [ -f results/last_build.env ] ; then echo "success" ; else exit 1 ; fi
+      - name: Install Chef Habitat Builder
+        run: git clone https://github.com/habitat-sh/on-prem-builder.git ; cp test/scripts/bldr.env on-prem-builder/ ; cd on-prem-builder ; sudo sh install.sh
+        env:
+          HAB_LICENSE: accept-no-persist
+      - name: Setup Chef Habitat Builder
+        run: sh test/scripts/bldr_setup.sh
+        env:
+          HAB_LICENSE: accept-no-persist
+      - name: Test kitchen
+        run: kitchen converge -c
+        env:
+          HAB_LICENSE: accept-no-persist
+          CHEF_LICENSE: accept-no-persist
       # Reference repo, no direct tests to run
       # - name: kitchen
       #   run: kitchen converge

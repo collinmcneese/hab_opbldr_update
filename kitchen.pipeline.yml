@@ -1,0 +1,29 @@
+---
+driver:
+  name: exec
+
+provisioner:
+  name: shell
+  script: 'test/scripts/bootstrap.sh'
+
+platforms:
+  - name: ubuntu-latest
+
+verifier:
+  name: inspec
+
+suites:
+  - name: cookbook_origin
+    named_run_list: cookbook_origin
+    verifier:
+      inspec_tests:
+        - path: test/integration/cookbook_origin
+    attributes:
+      build: false
+  - name: cookbook_packages
+    named_run_list: cookbook_packages
+    verifier:
+      inspec_tests:
+        - path: test/integration/cookbook_packages
+    attributes:
+      build: false

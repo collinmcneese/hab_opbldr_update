@@ -7,10 +7,17 @@
 name 'hab_opbldr_update'
 
 # Where to find external cookbooks:
-default_source :supermarket
+default_source :chef_repo, '../'
 
 # run_list: chef-client will run these recipes in the order specified.
 run_list 'hab_opbldr_update'
 
 # Specify a custom source for a single cookbook:
 cookbook 'hab_opbldr_update', path: '../cookbooks/hab_opbldr_update'
+cookbook 'test', path: '../test/fixtures/cookbooks/test'
+
+tests = (Dir.entries('./test/fixtures/cookbooks/test/recipes').select { |f| !File.directory? f })
+tests.each do |test|
+  test = test.gsub('.rb', '')
+  named_run_list :"#{test.to_sym}", "test::#{test}"
+end
