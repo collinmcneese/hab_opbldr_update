@@ -29,6 +29,14 @@ jobs:
         run: chef install policyfiles/Policyfile.rb
         env:
           CHEF_LICENSE: accept-no-persist
+      - name: Install Chef Habitat
+        uses: collinmcneese/chef-habitat-install@master
+      - name: Build Habitat package
+        run: export pkg_origin=$(grep '^pkg_origin' habitat/plan.sh | awk -F'=' '{print $2}') ; hab origin key generate ${pkg_origin} ; hab studio -k ${pkg_origin} build .
+        env:
+          HAB_LICENSE: accept-no-persist
+      - name: Validate Chef Habitat Build
+        run: if [ -f results/last_build.env ] ; then echo "success" ; else exit 1 ; fi
       # Reference repo, no direct tests to run
       # - name: kitchen
       #   run: kitchen converge
@@ -41,14 +49,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Install Chef
+        uses: actionshub/chef-install@master
+      - name: PolicyFile test
+        run: chef install policyfiles/Policyfile.rb
+        env:
+          CHEF_LICENSE: accept-no-persist
       - name: Install Chef Habitat
         uses: collinmcneese/chef-habitat-install@master
-      - name: Build Habitat package
-        run: export pkg_origin=$(grep '^pkg_origin' habitat/plan.sh | awk -F'=' '{print $2}') ; hab origin key generate ${pkg_origin} ; hab studio -k ${pkg_origin} build .
-        env:
-          HAB_LICENSE: accept-no-persist
-      - name: Validate Chef Habitat Build
-        run: if [ -f results/last_build.env ] ; then echo "success" ; else exit 1 ; fi
       - name: Install Chef Habitat Builder
         run: git clone https://github.com/habitat-sh/on-prem-builder.git ; cp test/scripts/bldr.env on-prem-builder/ ; cd on-prem-builder ; sudo bash install.sh
         env:
