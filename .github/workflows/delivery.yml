@@ -60,7 +60,7 @@ jobs:
       - name: Install Chef Habitat
         uses: collinmcneese/chef-habitat-install@master
       - name: Install Chef Habitat Builder
-        run: git clone https://github.com/habitat-sh/on-prem-builder.git ; cp test/scripts/bldr.env on-prem-builder/ ; cd on-prem-builder ; sudo export HAB_LICENSE=accept-no-persist ; sudo bash install.sh
+        run: git clone https://github.com/habitat-sh/on-prem-builder.git ; cp test/scripts/bldr.env on-prem-builder/ ; export HAB_LICENSE=accept-no-persist ; sudo bash on-prem-builder/install.sh
         env:
           HAB_LICENSE: accept-no-persist
       - name: Setup Chef Habitat Builder
