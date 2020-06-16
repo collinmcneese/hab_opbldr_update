@@ -1,5 +1,6 @@
 #!/bin/bash
 
+. habitat/plan.sh || source habitat/plan.sh
 export HAB_LICENSE="accept-no-persist"
 export HAB_ORIGIN="${pkg_origin}"
 
