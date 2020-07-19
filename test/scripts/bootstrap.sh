@@ -17,7 +17,7 @@ else
 fi
 hab license accept
 hab pkg install core/hab-studio
-# hab origin key generate ${pkg_origin}
+hab origin key generate ${pkg_origin}
 hab studio build -k ${pkg_origin} .
 results/last_build.env
 
