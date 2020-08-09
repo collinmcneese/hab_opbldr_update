@@ -3,6 +3,7 @@
 . habitat/plan.sh || source habitat/plan.sh
 export HAB_LICENSE="accept-no-persist"
 export HAB_ORIGIN="${pkg_origin}"
+named_run_list=$(cat named_run_list)
 
 echo "Installing Habitat"
 if [ ! -d /hab ]; then
@@ -15,11 +16,13 @@ if getent passwd | grep -q "^hab:" ; then
 else
   useradd hab
 fi
+if [ ! -f results/last_build.env ] ; then 
 hab license accept
-hab pkg install core/hab-studio
 hab origin key generate ${pkg_origin}
-hab studio build -k ${pkg_origin} .
-results/last_build.env
+hab pkg build -k ${pkg_origin} .
+fi
+. results/last_build.env || source results/last_build.env
+
 
 echo "Installing ${pkg_artifact}"
 hab pkg install results/${pkg_artifact}
@@ -30,6 +33,6 @@ echo "Found: ${pkg_prefix}"
 
 echo "Running chef for ${pkg_name}"
 cd "${pkg_prefix}" || exit 1
-hab pkg exec "${pkg_origin}/${pkg_name}" chef-client -z -c "${pkg_prefix}/config/bootstrap-config.rb"
+hab pkg exec "${pkg_origin}/${pkg_name}" chef-client -z -n ${named_run_list} -c "${pkg_prefix}/config/bootstrap-config.rb"
 
 # Cleanup

@@ -80,8 +80,13 @@ action :sync do
             if target_package_version_check
               # pkg exists on target builder
             else
-              Dir.mkdir(tmp_dir) unless File.directory?(tmp_dir)
-              node.run_state['download_array'].push("hab pkg download -u #{new_resource.source_builder} -z #{new_resource.source_PAT} -c #{channel} --target #{package['target']} --download-directory #{tmp_dir} #{package['origin']}/#{package['name']}/#{package['version']}/#{package['release']}")
+              FileUtils.mkdir_p(tmp_dir.to_s) unless Dir.exist?(tmp_dir.to_s)
+              source_auth = if new_resource.source_PAT
+                              "-z #{new_resource.source_PAT}"
+                            else
+                              ''
+                            end
+              node.run_state['download_array'].push("hab pkg download -u #{new_resource.source_builder} #{source_auth} -c #{channel} --target #{package['target']} --download-directory #{tmp_dir} #{package['origin']}/#{package['name']}/#{package['version']}/#{package['release']}")
             end
           end
         end

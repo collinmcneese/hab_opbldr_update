@@ -1,11 +1,9 @@
-ENV['SOURCE_BLDR'] = 'https://bldr.habitat.sh'
-ENV['TARGET_BLDR'] = 'http://localhost'
-ENV['TARGET_PAT'] = 'test123'
+# Test resource for performing a full origin sync, including all packages which have been promoted to the channel 'test'
 
 builder_sync 'origin_sync' do
-  source_builder ENV['SOURCE_BLDR']
-  target_builder ENV['TARGET_BLDR']
-  target_PAT ENV['TARGET_PAT']
+  source_builder 'https://bldr.habitat.sh'
+  target_builder 'http://localhost'
+  target_PAT '_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=='
   tmp_dir '/tmp/hab_update_tmp'
   origin 'collinmcneese-test'
   channels %w(test)

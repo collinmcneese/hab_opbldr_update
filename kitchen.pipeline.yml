@@ -20,6 +20,9 @@ suites:
         - path: test/integration/cookbook_origin
     attributes:
       build: false
+    lifecycle:
+      pre_converge:
+        - remote: echo 'cookbook_origin' > named_run_list
   - name: cookbook_packages
     named_run_list: cookbook_packages
     verifier:
@@ -27,3 +30,6 @@ suites:
         - path: test/integration/cookbook_packages
     attributes:
       build: false
+    lifecycle:
+      pre_converge:
+        - remote: echo 'cookbook_packages' > named_run_list
